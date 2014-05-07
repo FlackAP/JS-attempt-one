@@ -104,6 +104,7 @@ var mapLocation = {left: 0, right: 0};
 
 var direction = locationChoice();
 
+// prompts the user to make a decision on which direction to go.
 function locationChoice() {
 	var direction = prompt("Where would you like to go? Left or Right?");
 		console.log("Where would you like to go? Left or Right?")
@@ -122,8 +123,8 @@ function locationChoice() {
 }
 
 
-
-function fight () {
+// Function to pace you through the fight with zombie1
+function fight1 () {
 	var creatureDamage = Math.random();
 	return zombie1.life = zombie1.life - creatureDamage * 100;
 	console.log("You swing your " + heroCharacter.weapon + " at the creature and hit for " + creatureDamage*100% + "points of damage.");
@@ -133,43 +134,50 @@ function fight () {
 	}
 
 	else {
-		return fight();
+		return fight1();
 	}
 }	
 
 
 
-if ((mapLocation.left == 1) && (mapLocation.right == 0))
-	{
-		alert("Oh, no. 3 feet in front of you a shell of a creature shambles towards you. Groaning as it strains to stay upright it begins to claw at you. You must react!")
-		console.warn("Oh, no. 3 feet in front of you a shell of a creature shambles towards you. Groaning as it strains to stay upright it begins to claw at you. You must react!")
+function zombieEncounter1 () {
+	if ((mapLocation.left == 1) && (mapLocation.right == 0)) {
 
-		var decision = prompt ("Do you run, or do you fight?");
+			alert("Oh, no. 3 feet in front of you a shell of a creature shambles towards you. Groaning as it strains to stay upright it begins to claw at you. You must react!")
+			console.warn("Oh, no. 3 feet in front of you a shell of a creature shambles towards you. Groaning as it strains to stay upright it begins to claw at you. You must react!")
 
-		if (decision.toLowerCase() == "run") {
-			var whatHappened = Math.random();
-				
-				if (whatHappened > .45) {
-					console.log("You luckily got away unharmed.");
-				}
+			var decision = prompt ("Do you run, or do you fight?");
 
-				else {
-					console.log("The creature grabs you and drags you back. Looks like you'll have to fight after taking one point of damage.")
-					return heroCharacter.life = (heroCharacter.life - 1)
-					console.log("Life: " +heroCharacter.life);
-				}
-		}
-		
-		else if (decision.toLowerCase() == "fight") {
-			return fight();
+			if (decision.toLowerCase() == "run") {
+				var whatHappened = Math.random();
+					
+					if (whatHappened > .45) {
+						console.log("You luckily got away unharmed.");
+						return locationChoice();
+					}
+
+					else {
+						console.log("The creature grabs you and drags you back. Looks like you'll have to fight after taking one point of damage.")
+						return heroCharacter.life = (heroCharacter.life - 1)
+						console.log("Life: " +heroCharacter.life);
+						return fight1();
+					}
+			}
 			
-		}
-
+			else if (decision.toLowerCase() == "fight") {
+				return fight1();	
+			}
 	}
+	else {
+		return locationChoice();
+	}
+}
 
 
 
 
+
+zombieEncounter1()
 
 
 
