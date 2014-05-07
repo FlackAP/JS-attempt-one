@@ -11,7 +11,7 @@ function askForFirstName () {
 	}
 	else {
 		console.warn("I'm sorry, you must give me your name");
-		return askForName();
+		return askForFirstName();
 	}
 }
 
@@ -34,7 +34,7 @@ function askForLastName () {
 	}
 	else {
 		console.warn("I'm sorry, you must give me your name");
-		return askForName();
+		return askForLastName();
 	}
 }
 
@@ -110,10 +110,12 @@ function locationChoice() {
 		console.log("Where would you like to go? Left or Right?")
 	if (direction.toLowerCase() == "left") {
 		return mapLocation.left = (mapLocation.left + 1);
+		console.log("Your location is, Left: " + mapLocation.left + ", and Right: " + mapLocation.right);
 	}
 
 	else if (direction.toLowerCase() == "right") {
 		return mapLocation.right = (mapLocation.right + 1);
+		console.log("Your location is, Left: " + mapLocation.left + ", and Right: " + mapLocation.right);
 	}
 
 	else {
@@ -123,20 +125,6 @@ function locationChoice() {
 }
 
 
-// Function to pace you through the fight with zombie1
-function fight1 () {
-	var creatureDamage = Math.random();
-	return zombie1.life = zombie1.life - creatureDamage * 100;
-	console.log("You swing your " + heroCharacter.weapon + " at the creature and hit for " + creatureDamage*100% + "points of damage.");
-	
-	if (zombie1.life == 0) {
-		console.log("The creature has been slain")
-	}
-
-	else {
-		return fight1();
-	}
-}	
 
 
 
@@ -151,16 +139,16 @@ function zombieEncounter1 () {
 			if (decision.toLowerCase() == "run") {
 				var whatHappened = Math.random();
 					
-					if (whatHappened > .45) {
+					if (whatHappened > .95) {
 						console.log("You luckily got away unharmed.");
 						return locationChoice();
 					}
 
 					else {
-						console.log("The creature grabs you and drags you back. Looks like you'll have to fight after taking one point of damage.")
-						return heroCharacter.life = (heroCharacter.life - 1)
-						console.log("Life: " +heroCharacter.life);
-						return fight1();
+						console.log("The creature grabs you and drags you back. Looks like you'll have to fight after taking one point of damage.");
+						heroCharacter.life = (heroCharacter.life - 1);
+						console.log("Life: "+ heroCharacter.life);
+						fight1();
 					}
 			}
 			
@@ -174,12 +162,32 @@ function zombieEncounter1 () {
 }
 
 
+// Function to pace you through the fight with zombie1
+
+function fight1 () {
+	var creatureDamage = Math.random();
+	console.log("You swing your " + heroCharacter.weapon + " at the creature and hit for " + Math.round(creatureDamage*10) + " points of damage.");
+	zombie1.life = (zombie1.life - (Math.round(creatureDamage*10)));
+
+	
+	isItDead();
+}	
+
+function isItDead () {
+		
+		if (zombie1.life > 0) {
+			console.log("The creature still has " + zombie1.life + " hit points left");
+			fight1();
+		}
+
+		else {
+			console.log("The creature has been slain");
+			return locationChoice();
+		}
+}
 
 
-
-zombieEncounter1()
-
-
+zombieEncounter1();
 
 
 
