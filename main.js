@@ -184,11 +184,11 @@ function fight1 () {
 	var creatureAttack = Math.random();
 
 		if (creatureAttack > .3){
-			var creatureAttackRoll = Math.round(Math.random()*10);
+			var creatureAttackRoll = Math.round((Math.random()*10)/2);
 			heroCharacter.life = heroCharacter.life - creatureAttackRoll;		
 			console.log ("The creature has struck you and done " + creatureAttackRoll + " points of damage.")
 			console.log ("Your health is currently: " + heroCharacter.life)
-
+			areYouDead();
 		}
 	isItDead();
 }	
@@ -197,7 +197,7 @@ function fight1 () {
 function areYouDead () {
 	if ((heroCharacter.life == 0) || (heroCharacter.life < 0)) {
 		console.log ("Your health has dipped too low and our hero," + firstName + " " + lastName +" have died. So sad")
-		endGame();
+		return endGame();
 	}
 
 }
@@ -216,15 +216,17 @@ function isItDead () {
 		if (zombie1.life > 0) {
 			console.log("The creature still has " + zombie1.life + " hit points left");
 			fight1();
-			areYouDead();
+			if (areYouDead() == true) {
+				return areYouDead;
+			}
 		}
 
 		else {
 			console.log ("The creature has been slain");
 			console.log("Your life is currently at " + heroCharacter.life + " points");
 			alert("The creature has been slain");
-			locationChoice();
-			areYouDead();
+			return locationChoice();
+
 		}
 }
 
@@ -261,6 +263,8 @@ function encounterMap () {
 	else if ((mapLocation.left == 5) || (mapLocation.up == 5)){
 		console.log("Thank you for playing")
 		console.log(firstName + " " + lastName + " - you have successfully survived with " + heroCharacter.life + " health points.");
+		alert("Up ahead you see a building that's been walled off. People, walk the roofline. Real people! This could be your chance!")
+		console.log("Up ahead you see a building that's been walled off. People, walk the roofline. Real people! This could be your chance!")
 		alert(firstName + " " + lastName + " - you have successfully survived with " + heroCharacter.life + " health points.");
 		// throw new UserException("Something went horribly wrong if you won. Please refresh.");
 	}
@@ -317,7 +321,7 @@ function zombieEncounter2 () {
 function fight2 () {
 	var creatureDamage = Math.random();
 	console.log("You swing your " + heroCharacter.weapon + " at the creature and hit for " + Math.round(creatureDamage*10) + " points of damage.");
-	zombie2.life = (zombie2.life - (Math.round(creatureDamage*10)));
+	zombie2.life = (zombie2.life - (Math.round((creatureDamage*10)/2)));
 
 
 
@@ -328,7 +332,7 @@ function fight2 () {
 			heroCharacter.life = heroCharacter.life - creatureAttackRoll;		
 			console.log ("The creature has struck you and done " + creatureAttackRoll + " points of damage.")
 			console.log ("Your health is currently: " + heroCharacter.life)
-
+			return areYouDead();
 		}
 
 	isItDead2();
@@ -399,11 +403,11 @@ function fight3 () {
 	var creatureAttack = Math.random();
 	
 		if (creatureAttack > .4){
-			var creatureAttackRoll = Math.round(Math.random()*10);
+			var creatureAttackRoll = Math.round((Math.random()*10)/2);
 			heroCharacter.life = heroCharacter.life - creatureAttackRoll;		
 			console.log ("The creature has struck you and done " + creatureAttackRoll + " points of damage.")
 			console.log ("Your health is currently: " + heroCharacter.life)
-
+			areYouDead();
 		}
 
 	isItDead3();
@@ -430,12 +434,12 @@ function isItDead3 () {
 
 function zombieEncounter4 () {
 
-			alert("Oh, no. 3 feet in front of you a shell of a creature shambles towards you. Groaning as it strains to stay upright it begins to claw at you. You must react!")
-			console.warn("Oh, no. 3 feet in front of you a shell of a creature shambles towards you. Groaning as it strains to stay upright it begins to claw at you. You must react!")
+			alert("You can see a creature looming nearby. It might make sense to just take it out rather than sneaking around.")
+			console.warn("You can see a creature looming nearby. It might make sense to just take it out rather than sneaking around.")
 
-			var decision = prompt ("Do you run, or do you fight?");
+			var decision = prompt ("Do you sneak, or do you fight?");
 
-			if (decision.toLowerCase() == "run") {
+			if (decision.toLowerCase() == "sneak") {
 				var whatHappened = Math.random();
 
 					if (whatHappened > .95) {
@@ -472,11 +476,11 @@ function fight4 () {
 	var creatureAttack = Math.random();
 	
 		if (creatureAttack > .3){
-			var creatureAttackRoll = Math.round(Math.random()*10);
+			var creatureAttackRoll = Math.round((Math.random()*10)/2);
 			heroCharacter.life = heroCharacter.life - creatureAttackRoll;		
 			console.log ("The creature has struck you and done " + creatureAttackRoll + " points of damage.")
 			console.log ("Your health is currently: " + heroCharacter.life)
-
+			return areYouDead();
 		}
 	isItDead4();
 }	
@@ -544,11 +548,11 @@ function fight5 () {
 	var creatureAttack = Math.random();
 	
 		if (creatureAttack > .3){
-			var creatureAttackRoll = Math.round(Math.random()*10);
+			var creatureAttackRoll = Math.round((Math.random()*10/2));
 			heroCharacter.life = heroCharacter.life - creatureAttackRoll;		
 			console.log ("The creature has struck you and done " + creatureAttackRoll + " points of damage.")
 			console.log ("Your health is currently: " + heroCharacter.life)
-
+			areYouDead();
 		}
 	isItDead5();
 }	
@@ -617,7 +621,7 @@ function zombieEncounter6 () {
 function fight6 () {
 	var creatureDamage = Math.random();
 	console.log("You swing your " + heroCharacter.weapon + " at the creature and hit for " + Math.round(creatureDamage*10) + " points of damage.");
-	zombie6.life = (zombie6.life - (Math.round(creatureDamage*10)));
+	zombie6.life = (zombie6.life - (Math.round((creatureDamage*10)/2)));
 
 
 
@@ -628,7 +632,7 @@ function fight6 () {
 			heroCharacter.life = heroCharacter.life - creatureAttackRoll;		
 			console.log ("The creature has struck you and done " + creatureAttackRoll + " points of damage.")
 			console.log ("Your health is currently: " + heroCharacter.life)
-			
+			areYouDead();
 		}
 	isItDead6();
 }	
